@@ -203,3 +203,98 @@ $ git commit -m "Initial commit"
  1 file changed, 1 insertion(+)
  create mode 100644 index.html
 ```
+
+## GROUP CHANGES
+
+Name a series of commits and combine completed efforts
+
+### Lists all local branches in the current repository
+
+```
+$ git branch
+* master
+```
+
+### Creates a new branch
+
+```
+$ git branch stable
+```
+
+### Lists all local branches again
+
+```
+$ git branch
+* master
+  stable
+```
+
+### Switches to the specified branch and updates the working directory
+
+```
+$ git checkout stable
+Switched to branch 'stable'
+```
+
+### Lists all local branches again
+
+```
+$ git branch
+  master
+* stable
+```
+
+### Make changes to a file, check status, stage, check differences, and 
+commit
+
+```
+$ echo "<p>INDEX - LINE #2 - STABLE BRANCH</p>" >> index.html
+$ git status
+On branch stable
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   index.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+$ cat index.html
+<h3>INDEX - LINE #1</h3>
+<p>INDEX - LINE #2 - STABLE BRANCH</p>
+$ git add index.html
+$ git diff --staged
+diff --git a/index.html b/index.html
+index 3dd7afb..0fe99ad 100644
+--- a/index.html
++++ b/index.html
+@@ -1 +1,2 @@
+ <h3>INDEX - LINE #1</h3>
++<p>INDEX - LINE #2 - STABLE BRANCH</p>
+$ git commit -m "Add line #2 to index.html"
+[stable d987e59] Add line #2 to index.html
+ 1 file changed, 1 insertion(+)
+```
+
+### Change back to 'master' branch
+
+```
+$ git checkout master
+Switched to branch 'master'
+```
+
+### Combines the specified branch's history into the current branch
+
+```
+$ git merge stable
+Updating 6d4f552..d987e59
+Fast-forward
+ index.html | 1 +
+ 1 file changed, 1 insertion(+)
+```
+
+### Deletes the specified branch
+
+```
+$ git branch -d stable
+Deleted branch stable (was d987e59).
+```
